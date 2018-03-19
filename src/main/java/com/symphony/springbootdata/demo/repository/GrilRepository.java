@@ -4,6 +4,7 @@ import com.symphony.springbootdata.demo.domain.Gril;
 import java.util.List;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +14,8 @@ import org.springframework.data.repository.query.Param;
  * @Date: 2017-11-24
  * @Time: 下午1:50
  */
-public interface GrilRepository extends JpaRepository<Gril, Integer> {
+public interface GrilRepository extends JpaRepository<Gril, Integer> ,
+    JpaSpecificationExecutor<Gril>{
 
   //根据年龄来查女生
   public List<Gril> findByAge(Integer age);

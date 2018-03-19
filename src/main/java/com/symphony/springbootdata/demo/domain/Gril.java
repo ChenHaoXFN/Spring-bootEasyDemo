@@ -3,6 +3,7 @@ package com.symphony.springbootdata.demo.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import lombok.Data;
 
@@ -29,6 +30,8 @@ public class Gril {
   private String name;
   @Min(value = 18, message = "未成年") //
   private Integer age;
+
+  @Max(value = 10)
   private String phoneNum;
 
 

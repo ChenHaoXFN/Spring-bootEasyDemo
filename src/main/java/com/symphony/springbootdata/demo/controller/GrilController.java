@@ -5,12 +5,21 @@ import com.symphony.springbootdata.demo.repository.GrilRepository;
 import com.symphony.springbootdata.demo.Result.GrilResult;
 import com.symphony.springbootdata.demo.domain.Gril;
 import com.symphony.springbootdata.demo.service.GrilService;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,25 +67,37 @@ public class GrilController {
   }
 
   /**
-   * 查找所有女生.
+   * 动态查询分页.
    */
   @GetMapping("/grils")
-  public List<Gril> findUser() {
-    return grilRepository.findAll();
+  public Page<Gril> findUser(Pageable pageable, @RequestParam("id") String id,@RequestParam("name") String name) {
+    Specification<Gril> specification = (root, criteriaQuery, criteriaBuilder) -> {
+      List<Predicate> predicates = new ArrayList<>();
+      if (!StringUtils.isEmpty(id)) {
+        predicates.add(criteriaBuilder.equal(root.get("id"), id));
+      }
+      if(!StringUtils.isEmpty(name)){
+        predicates.add(criteriaBuilder.like(root.get("name"), "%"+name+"%"));
+      }
+      Predicate[] p = new Predicate[predicates.size()];
+      return criteriaBuilder.and(predicates.toArray(p));
+    };
+    long count = grilRepository.count(specification); // 返回对应查询条件的总条数
+
+    return grilRepository.findAll(specification, pageable); // 查询条件，分页条件
   }
 
   /**
-   * 添加女生.
+   * 添加女生.(返回成功错误信息data)
    */
   @PostMapping("/grils")
   public GrilResult addUser(@Valid Gril gril, BindingResult bindingResult) {
+    GrilResult result = new GrilResult();
     if (bindingResult.hasErrors()) {
-      GrilResult result = new GrilResult();
       result.setCode(1);
       result.setMsg(bindingResult.getFieldError().getDefaultMessage());
       return result;
     }
-    GrilResult result = new GrilResult();
     result.setCode(0);
     result.setMsg("成功");
     result.setData(grilRepository.save(gril));
