@@ -1,8 +1,8 @@
 package com.symphony.springbootdata.demo.service;
 
-import com.symphony.springbootdata.demo.repository.GrilPagingAndSortingRepository;
-import com.symphony.springbootdata.demo.repository.GrilRepository;
-import com.symphony.springbootdata.demo.domain.Gril;
+import com.symphony.springbootdata.demo.domain.Girl;
+import com.symphony.springbootdata.demo.repository.GirlPagingAndSortingRepository;
+import com.symphony.springbootdata.demo.repository.GirlRepository;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +14,16 @@ import org.springframework.stereotype.Service;
  * Created by ch on 2017-11-27
  */
 @Service
-public class GrilService {
+public class GirlService {
 
   @Autowired
-  private GrilRepository grilRepository;
+  private GirlRepository girlRepository;
 
   @Autowired
-  private GrilPagingAndSortingRepository grilPagingAndSortingRepository;
+  private GirlPagingAndSortingRepository girlPagingAndSortingRepository;
 
-  public Gril findGrilById(Integer id) {
-    return grilRepository.findOne(id);
+  public Girl findGrilById(Integer id) {
+    return girlRepository.findOne(id);
   }
 
   /**
@@ -36,31 +36,31 @@ public class GrilService {
   /**
    * 测试方法测试.
    */
-  public Gril findOne(Integer id) {
-    List<Gril> lists = grilRepository.findByNameStartingWithAndAgeLessThan("陈浩", 22);
-    for (Gril gril : lists) {
-      System.out.println(gril.toString());
+  public Girl findOne(Integer id) {
+    List<Girl> lists = girlRepository.findByNameStartingWithAndAgeLessThan("陈浩", 22);
+    for (Girl girl : lists) {
+      System.out.println(girl.toString());
     }
-    grilRepository.findAll();
-    return grilRepository.findOne(id);
+    girlRepository.findAll();
+    return girlRepository.findOne(id);
   }
 
   //修改时 需要 添加@Transactional注解，
   @Transactional
   public void updataGril(Integer age, Integer id) {
-    grilRepository.updataGril(age, id);
+    girlRepository.updataGril(age, id);
   }
 
 
   //删除时 需要 添加@Transactional注解，
   @Transactional
   public void deldteGril(Integer id) {
-    grilRepository.deleteGril(id);
+    girlRepository.deleteGril(id);
   }
 
 
   public void page(Pageable pageable) {
-    Page<Gril> grils = grilPagingAndSortingRepository.findAll(pageable);
+    Page<Girl> grils = girlPagingAndSortingRepository.findAll(pageable);
     System.out.println("总共多少页？++++" + grils.getTotalPages());
     System.out.println("当前第几页？++++" + ((pageable.getPageNumber() + 1)));
     System.out.println("一共多少条？++++" + grils.getTotalElements());
@@ -71,9 +71,9 @@ public class GrilService {
     System.out.println("-----------------------");
     System.out.println("-----------------------");
     System.out.println("-----------------------");
-    List<Gril> grilList = grils.getContent();
-    for (Gril gril : grilList) {
-      System.out.println(gril.toString());
+    List<Girl> girlList = grils.getContent();
+    for (Girl girl : girlList) {
+      System.out.println(girl.toString());
     }
 
   }

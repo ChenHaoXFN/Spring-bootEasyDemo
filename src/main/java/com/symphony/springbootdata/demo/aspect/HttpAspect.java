@@ -28,7 +28,7 @@ public class HttpAspect {
   private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
 
   //将重复的代码提取出来.使用注解Pointcut.
-  @Pointcut("execution(public * com.symphony.springbootdata.demo.controller.GrilController.*(..))")
+  @Pointcut("execution(public * com.symphony.springbootdata.demo.controller.GirlController.*(..))")
   public void log() {
   }
 

@@ -1,7 +1,7 @@
 package com.symphony.springbootdata.demo;
 
-import com.symphony.springbootdata.demo.domain.Gril;
-import com.symphony.springbootdata.demo.repository.GrilRepository;
+import com.symphony.springbootdata.demo.domain.Girl;
+import com.symphony.springbootdata.demo.repository.GirlRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,16 +14,16 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GrilServiceTest {
+public class GirlServiceTest {
 
   @Autowired
-  private GrilRepository grilRepository;
+  private GirlRepository girlRepository;
 
   @Test
   public void findOne() {
-    Gril gril = grilRepository.findOne(1);
-    Assert.assertEquals(new Integer(24), gril.getAge());
-    System.out.println(gril.toString());
+    Girl girl = girlRepository.findOne(1);
+    Assert.assertEquals(new Integer(24), girl.getAge());
+    System.out.println(girl.toString());
   }
 
 }

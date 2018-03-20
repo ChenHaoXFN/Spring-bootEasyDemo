@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GrilServiceTest {
+public class GirlServiceTest {
 
   @Autowired
   private MockMvc mvc;

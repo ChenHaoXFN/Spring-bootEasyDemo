@@ -12,11 +12,11 @@ import lombok.Data;
  */
 @Entity
 @Data
-public class Gril {
+public class Girl {
 
   @Override
   public String toString() {
-    return "Gril{" +
+    return "Girl{" +
         "id=" + id +
         ", name='" + name + '\'' +
         ", age=" + age +
@@ -35,15 +35,15 @@ public class Gril {
   private String phoneNum;
 
 
-  public Gril(String name, Integer age) {
+  public Girl(String name, Integer age) {
     this.name = name;
     this.age = age;
   }
 
-  public Gril() {
+  public Girl() {
   }
 
-  public Gril(Integer id, String name, Integer age) {
+  public Girl(Integer id, String name, Integer age) {
     this.id = id;
     this.name = name;
     this.age = age;

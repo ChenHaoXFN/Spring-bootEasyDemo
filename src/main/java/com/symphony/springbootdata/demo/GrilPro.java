@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "gril")
+@ConfigurationProperties(prefix = "girl")
 public class GrilPro {
   private Integer age;
   private String cupSize;
